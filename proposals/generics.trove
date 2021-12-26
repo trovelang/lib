@@ -18,10 +18,10 @@ take_a_vec pub fn (v vec(?)) {
     }
 }
 
-vec.to_string pub fn (self) string {
+// this is experimentatl
+vec::to_string pub fn (self) string {
     "vector".append(@typeof(self.data))
 }
-
 
 main pub fn {
 

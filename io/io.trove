@@ -5,13 +5,13 @@ const stdout = fd.open(0)
 const stdin = fd.open(1)
 const stderr = fd.open(2)
 
-println fn (data ?) Err(void) {
+println fn (data &?) Err(void) {
     comp {
         if ! @typeof(data).has_method("to_string") {
             return Err(void, "data must have to_string method")
         }    
     }
-    stdout.write(data.to_string())
+    stdout.write(&data.to_string())
 }
 
 
@@ -21,7 +21,7 @@ example pub fn {
     hello_world "hello, world!"
 
 
-    println(hello_world)
+    println(&hello_world)
 
 
 

@@ -1,0 +1,57 @@
+
+/*
+
+t Task(&fn {
+    @import("io")
+    for i, [0..100] {
+        println("{}", i)
+    }
+}) 
+t.start()
+
+*/
+
+
+os = @import("os")
+
+thread_pool_size const = 1_000
+
+Task pub fn (callback &?)  {
+     
+    t = @typeof(callback)
+
+    comp {
+        if !t.is_fn() {
+            @CompError("Callback must be a function!")
+        }
+
+        return {
+            callback t
+
+            start pub fn (&self) {
+                os.fork(&self.callback)
+            }
+
+            wait pub fn (&self) {
+                os.wait()
+            }
+        }
+    }
+}
+
+TaskPool pub fn (comp size u32 = thread_pool_size){
+    return {
+        used = 0
+        size = size
+        threads = &thread(any)[size]
+
+        dispatch pub fn (callback &?){
+            if used < size {
+                t = thread(&callback)
+                threads.append(&t)
+                t.start()
+            }
+            @RuntimeErr("No more space left in threadpool.")
+        }
+    }
+}
