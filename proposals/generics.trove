@@ -1,0 +1,38 @@
+
+
+
+
+
+vec fn (comp t type) type {
+    return struct {
+        data pub t    
+    }
+}
+
+// here we say that we don't know what the type of the vector will be, so we wait for the compiler to infer it
+take_a_vec pub fn (v vec(?)) {
+    comp {
+        io = @import("io")
+        io.println(@typeof(v.data))
+        io.println(v.to_string())
+    }
+}
+
+vec.to_string pub fn (self) string {
+    "vector".append(@typeof(self.data))
+}
+
+
+main pub fn {
+
+    // this is not allowed, because it can be guaranteed that the value is required,
+    // wheras in the take_a_vec fn, it's not guaranteed the type is required immediately
+    
+    v1 const = vec(?)
+    v1 const = vec(u32)
+    v2 const = vec(string)
+
+    take_a_vec(v1)
+    take_a_vec(v2)
+
+}

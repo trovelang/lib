@@ -1,0 +1,7 @@
+print fn (x any) {
+
+}
+
+println fn (x any) {
+
+}

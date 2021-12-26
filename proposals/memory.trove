@@ -1,0 +1,32 @@
+
+
+
+a_global_variable &u32
+
+
+set_a_global_variable fn (data &u32) {
+
+    // lets heap allocate some memory :)
+    x const = @boxed(123_456_789)
+
+    // here we borrow the value of x and set it to a_global_variable
+    a_global_variable = &x
+
+}
+
+print_a_global_variable fn {
+    io = @import("io")
+
+    // borrow the value and print it
+    io.println(&a_global_variable)
+}
+
+main pub fn {
+
+
+    set_a_global_variable()
+
+    print_a_global_variable()
+
+
+}
