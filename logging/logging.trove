@@ -1,0 +1,14 @@
+List = @import("containers").List
+io = @import("io")
+time = @import("time")
+
+Logger pub type {
+    history List(String)
+}
+
+Logger.log pub fn (self, rest ?){
+    io.println("{} {}", time.now(), ...rest)
+}
+
+
+

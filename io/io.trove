@@ -1,7 +1,28 @@
-print fn (x any) {
+fd = @import("fd")
+err = @import("error")
 
+const stdout = fd.open(0)
+const stdin = fd.open(1)
+const stderr = fd.open(2)
+
+println fn (data ?) Err(void) {
+    comp {
+        if ! @typeof(data).has_method("to_string") {
+            return Err(void, "data must have to_string method")
+        }    
+    }
+    stdout.write(data.to_string())
 }
 
-println fn (x any) {
+
+example pub fn {
+
+
+    hello_world "hello, world!"
+
+
+    println(hello_world)
+
+
 
 }

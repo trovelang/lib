@@ -1,0 +1,17 @@
+logging = import("logging")
+
+expect pub fn (comp t &type, value &t) type {
+
+    return {
+        value &t
+        logger = logging.logger()
+
+        is pub fn (self, other &t) bool {
+            result = self.value == t
+            if !result {
+                self.logger.err("expect.is failed... {} is not {}", &self.value, &other)
+            }
+        }
+
+    }
+}
